@@ -5,33 +5,38 @@
 // BANKIST APP
 
 // Data
+
+//One object for each account use object to mimic API
+//whenever get data from api data comes in as objects
 const account1 = {
-  owner: 'Jonas Schmedtmann',
+  owner: 'Nez Mustafa',
   movements: [200, 450, -400, 3000, -650, -130, 70, 1300],
   interestRate: 1.2, // %
-  pin: 1111,
+  pin: 4563,
 };
 
 const account2 = {
-  owner: 'Jessica Davis',
+  owner: 'Sarah Smith',
   movements: [5000, 3400, -150, -790, -3210, -1000, 8500, -30],
   interestRate: 1.5,
-  pin: 2222,
+  pin: 7309,
 };
 
 const account3 = {
-  owner: 'Steven Thomas Williams',
+  owner: 'Axel Landin',
   movements: [200, -200, 340, -300, -20, 50, 400, -460],
   interestRate: 0.7,
-  pin: 3333,
+  pin: 5177,
 };
 
 const account4 = {
-  owner: 'Sarah Smith',
+  owner: 'Olivia Jones',
   movements: [430, 1000, 700, 50, 90],
   interestRate: 1,
-  pin: 4444,
+  pin: 8692,
 };
+
+//put objects into array
 
 const accounts = [account1, account2, account3, account4];
 
