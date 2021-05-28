@@ -36,6 +36,9 @@ const account4 = {
   pin: 8692,
 };
 
+
+
+
 //put objects into array
 
 const accounts = [account1, account2, account3, account4];
@@ -79,3 +82,46 @@ const currencies = new Map([
 const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 
 /////////////////////////////////////////////////
+
+
+
+
+
+//but the arrat and foreach in seperate function
+
+const displayMovement = function(movements) {
+    //function should recieve one array of movements and work with data
+    //pass data directly on function
+    movements.forEach(function(mov, i){
+        //mvements and index
+    })
+}
+
+
+displayMovements(account1.movements);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
