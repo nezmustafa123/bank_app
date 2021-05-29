@@ -73,13 +73,13 @@ const inputClosePin = document.querySelector('.form__input--pin');
 /////////////////////////////////////////////////
 // LECTURES
 
-const currencies = new Map([
-  ['USD', 'United States dollar'],
-  ['EUR', 'Euro'],
-  ['GBP', 'Pound sterling'],
-]);
-
-const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
+//const currencies = new Map([
+//  ['USD', 'United States dollar'],
+//  ['EUR', 'Euro'],
+//  ['GBP', 'Pound sterling'],
+//]);
+//
+//const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 
 /////////////////////////////////////////////////
 
@@ -89,26 +89,32 @@ const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 
 //but the arrat and foreach in seperate function
 
-const displayMovement = function(movements) {
+const displayMovements = function(movements) {
+    //empty container
+    containerMovements.innderHTML = '' ;
+    //inner html returns everythign including html
     //function should recieve one array of movements and work with data
     //pass data directly on function
     movements.forEach(function(mov, i){
         //get current movement and index
         
      //if current movement greater than zero movement should be deposit
-        const type = mov > 0 ? 'deposit' : 'withdrawal'
+        const type = mov > 0 ? 'deposit' : 'withdrawal';
         
         //html template literal
         //construct class using template literal
         //mov current element
-        const html = `<div class="movements__row">
+        const html = `
+       <div class="movements__row">
           <div class="movements__type movements__type--${type}">${i + 1} ${type}</div>
           <div class="movements__value">${mov}</div>
-        </div>`;
+        </div>
+         `;
         
         
-        containerMovements.insertAdjacentHTML()
+        containerMovements.insertAdjacentHTML('afterbegin', html);
         //insert html into movements elements
+        //adter begin option will insert at the top second parameter html want to insert
     });
 };
 
