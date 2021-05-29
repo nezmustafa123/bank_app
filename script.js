@@ -93,9 +93,24 @@ const displayMovement = function(movements) {
     //function should recieve one array of movements and work with data
     //pass data directly on function
     movements.forEach(function(mov, i){
-        //mvements and index
-    })
-}
+        //get current movement and index
+        
+     //if current movement greater than zero movement should be deposit
+        const type = mov > 0 ? 'deposit' : 'withdrawal'
+        
+        //html template literal
+        //construct class using template literal
+        //mov current element
+        const html = `<div class="movements__row">
+          <div class="movements__type movements__type--${type}">${i + 1} ${type}</div>
+          <div class="movements__value">${mov}</div>
+        </div>`;
+        
+        
+        containerMovements.insertAdjacentHTML()
+        //insert html into movements elements
+    });
+};
 
 
 displayMovements(account1.movements);
