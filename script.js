@@ -113,21 +113,42 @@ const displayMovements = function(movements) {
         
         
         containerMovements.insertAdjacentHTML('afterbegin', html);
-        //insert html into movements elements
+        //insert html into movements elements after begin so child elements appear before any older ones
         //adter begin option will insert at the top second parameter html want to insert
     });
 };
 
 
 displayMovements(account1.movements);
+//reference array in object
+
+//function to compute usernames
 
 
+const createUsernames = function(accs) {
+    //create function with username variable
+const username = user
+.toLowerCase()
+.split(' ')
+.map(function(name){
+    return name[0];
+    //letter at position 0 array with three names
+    //name at first character
+})
+.join(''); //turn into string again
+//chain map method on to the end of split
+//array containing three names 
+
+//loop over array take first letter on each iteration
+return username;
+    //return username
+};
+//each function should recievet array it wants to work with instead of using global variable
+
+console.log(createUsernames(accounts));
 
 
-
-
-
-
+//compute one username for each account holder in users array
 
 
 
