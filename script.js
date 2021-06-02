@@ -87,14 +87,14 @@ const inputClosePin = document.querySelector('.form__input--pin');
 
 
 
-//but the arrat and foreach in seperate function
+//put the array and foreach in seperate function
 
 const displayMovements = function(movements) {
-    //empty container
+    //empty container defaults
     containerMovements.innderHTML = '' ;
     //inner html returns everythign including html
     //function should recieve one array of movements and work with data
-    //pass data directly on function
+    //pass data directly in function
     movements.forEach(function(mov, i){
         //get current movement and index
         
@@ -122,32 +122,50 @@ const displayMovements = function(movements) {
 displayMovements(account1.movements);
 //reference array in object
 
-//function to compute usernames
+//function to compute usernames oneo for each user in accounts
 
 
 const createUsernames = function(accs) {
     //create function with username variable
-const username = user
+    //recieve array of accounts modify array get as input
+accs.forEach(function(acc) {
+    //create new property username equate it to user ownemodified
+acc.username = acc.owner
 .toLowerCase()
-.split(' ')
+.split(' ') //split string into words by space
 .map(function(name){
     return name[0];
-    //letter at position 0 array with three names
-    //name at first character
+   
 })
-.join(''); //turn into string again
-//chain map method on to the end of split
-//array containing three names 
-
-//loop over array take first letter on each iteration
-return username;
-    //return username
+.join('');
+//no need to return
+});
 };
-//each function should recievet array it wants to work with instead of using global variable
-
-console.log(createUsernames(accounts));
 
 
+
+//    
+//const username = user
+//.toLowerCase()
+//.split(' ') //split string into words by space
+//.map(function(name){
+//    return name[0];
+//    //iterate through take first latter in each iteration
+//    //letter at position 0 array with three names
+//    //name at first character
+//})
+//.join(''); //turn into string again
+////chain map method on to the end of split
+////array containing three names 
+//
+////loop over array take first letter on each iteration
+//return username;
+//    //return username
+//};
+////each function should recievet array it wants to work with instead of using global variable
+
+createUsernames(accounts);
+console.log(accounts);
 //compute one username for each account holder in users array
 
 
