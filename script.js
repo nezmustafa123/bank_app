@@ -171,8 +171,32 @@ console.log(accounts);
 
 
 
+//filter method 
+
+const deposits = movements.filter(function(mov) {
+    //create array of deposits above zero.
+    return mov > 0;
+    //return boolean all elements for which this condition is true get filtered out
+    
+});
+//can chain these methods together
+//for one final result
 
 
+//using a regular for loop 
+
+const depositsFor = [];
+
+for(const mov of movements) {
+    if (mov > 0) {
+        depositsFor.push(mov);
+    }
+};
+
+
+const withdrawals = movements.filter(function(mov){
+    return mov < 0;
+});
 
 
 
