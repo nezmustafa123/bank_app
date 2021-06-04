@@ -9,31 +9,31 @@
 //One object for each account use object to mimic API
 //whenever get data from api data comes in as objects
 const account1 = {
-  owner: 'Nez Mustafa',
-  movements: [200, 450, -400, 3000, -650, -130, 70, 1300],
-  interestRate: 1.2, // %
-  pin: 4563,
+    owner: 'Nez Mustafa',
+    movements: [200, 450, -400, 3000, -650, -130, 70, 1300],
+    interestRate: 1.2, // %
+    pin: 4563,
 };
 
 const account2 = {
-  owner: 'Sarah Smith',
-  movements: [5000, 3400, -150, -790, -3210, -1000, 8500, -30],
-  interestRate: 1.5,
-  pin: 7309,
+    owner: 'Sarah Smith',
+    movements: [5000, 3400, -150, -790, -3210, -1000, 8500, -30],
+    interestRate: 1.5,
+    pin: 7309,
 };
 
 const account3 = {
-  owner: 'Axel Landin',
-  movements: [200, -200, 340, -300, -20, 50, 400, -460],
-  interestRate: 0.7,
-  pin: 5177,
+    owner: 'Axel Landin',
+    movements: [200, -200, 340, -300, -20, 50, 400, -460],
+    interestRate: 0.7,
+    pin: 5177,
 };
 
 const account4 = {
-  owner: 'Olivia Jones',
-  movements: [430, 1000, 700, 50, 90],
-  interestRate: 1,
-  pin: 8692,
+    owner: 'Olivia Jones',
+    movements: [430, 1000, 700, 50, 90],
+    interestRate: 1,
+    pin: 8692,
 };
 
 
@@ -69,38 +69,23 @@ const inputLoanAmount = document.querySelector('.form__input--loan-amount');
 const inputCloseUsername = document.querySelector('.form__input--user');
 const inputClosePin = document.querySelector('.form__input--pin');
 
-/////////////////////////////////////////////////
-/////////////////////////////////////////////////
-// LECTURES
-
-//const currencies = new Map([
-//  ['USD', 'United States dollar'],
-//  ['EUR', 'Euro'],
-//  ['GBP', 'Pound sterling'],
-//]);
-//
-//const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
-
-/////////////////////////////////////////////////
-
-
 
 
 
 //put the array and foreach in seperate function
 
-const displayMovements = function(movements) {
+const displayMovements = function (movements) {
     //empty container defaults
-    containerMovements.innderHTML = '' ;
+    containerMovements.innderHTML = '';
     //inner html returns everythign including html
     //function should recieve one array of movements and work with data
     //pass data directly in function
-    movements.forEach(function(mov, i){
+    movements.forEach(function (mov, i) {
         //get current movement and index
-        
-     //if current movement greater than zero movement should be deposit
+
+        //if current movement greater than zero movement should be deposit
         const type = mov > 0 ? 'deposit' : 'withdrawal';
-        
+
         //html template literal
         //construct class using template literal
         //mov current element
@@ -110,8 +95,6 @@ const displayMovements = function(movements) {
           <div class="movements__value">${mov}</div>
         </div>
          `;
-        
-        
         containerMovements.insertAdjacentHTML('afterbegin', html);
         //insert html into movements elements after begin so child elements appear before any older ones
         //adter begin option will insert at the top second parameter html want to insert
@@ -122,26 +105,40 @@ const displayMovements = function(movements) {
 displayMovements(account1.movements);
 //reference array in object
 
-//function to compute usernames oneo for each user in accounts
 
-
-const createUsernames = function(accs) {
-    //create function with username variable
-    //recieve array of accounts modify array get as input
-accs.forEach(function(acc) {
-    //create new property username equate it to user ownemodified
-acc.username = acc.owner
-.toLowerCase()
-.split(' ') //split string into words by space
-.map(function(name){
-    return name[0];
-   
-})
-.join('');
-//no need to return
-});
+const calcDisplayBalance = function(movements) {
+    const balance = movements.reduce(function(acc, mov){
+        return acc + mov;
+    }, 0);
+    //change balance labels text content
+    labelBalance.textContent = `${balance} GBP`;
 };
 
+
+
+calcDisplayBalance(account1.movements);
+//function to compute usernames oneo for each user in accounts
+const createUsernames = function (accs) {
+    //create function with username variable
+    //recieve array of accounts modify array get as input
+    accs.forEach(function (acc) {
+        //create new property username equate it to user owner modified
+        acc.username = acc.owner
+            .toLowerCase()
+            .split(' ') //split string into words by space
+            .map(function (name) {
+                return name[0];
+
+            })
+            .join('');
+        //no need to return
+    });
+};
+
+createUsernames(accounts);
+console.log(accounts);
+
+const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 
 
 //    
@@ -164,36 +161,30 @@ acc.username = acc.owner
 //};
 ////each function should recievet array it wants to work with instead of using global variable
 
-createUsernames(accounts);
-console.log(accounts);
 //compute one username for each account holder in users array
-
-
 
 
 //filter method 
 
-const deposits = movements.filter(function(mov) {
-    //create array of deposits above zero.
-    return mov > 0;
-    //return boolean all elements for which this condition is true get filtered out
-    
-});
-//can chain these methods together
+//const deposits = movements.filter(function (mov) {
+//    //create array of deposits above zero.
+//    return mov > 0;
+//    //return boolean all elements for which this condition is true get filtered out
+//
+//});
+////can chain these methods together
 //for one final result
 
 
 //using a regular for loop 
-//
+
 //const depositsFor = [];
-//
+
 //for(const mov of movements) {
 //    if (mov > 0) {
 //        depositsFor.push(mov);
 //    }
 //};
-//
-//
 //const withdrawals = movements.filter(function(mov){
 //    return mov < 0;
 //});
@@ -204,18 +195,25 @@ const deposits = movements.filter(function(mov) {
 //reduce method boil doing all elements in to one single value
 //parameters available to callback in reduce method is accumulator current element index and array
 //accumulator is like snowbball callback called on each iteration
-const balanace = movements.reduce(function(acc, cur, i, arr){
-    console.log(`Iteration ${i}: ${acc}`);
-    
-    //acc sum of all previous
-    return acc + cur;
-    
-// on each loop iteration update the value of accumulator plus new current value
-},0);
+//const balanace = movements.reduce(function (acc, cur, i, arr) {
+//    console.log(`Iteration ${i}: ${acc}`);
+//
+//    //acc sum of all previous
+//    return acc + cur;
+//
+//    // on each loop iteration update the value of accumulator plus new current value
+//}, 0);
 //initial value of acc start adding at 0
-console.log(balance);
+//console.log(balance);
 //3840
 
 
-
-
+//using for loop 
+//
+//let balance2 = 0;
+////external variable
+//for (const mov of movements) {
+//    balance2 += mov;
+//};
+//using one of the methods you don't need extra variable
+//return value right away
