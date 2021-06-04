@@ -184,27 +184,37 @@ const deposits = movements.filter(function(mov) {
 
 
 //using a regular for loop 
-
-const depositsFor = [];
-
-for(const mov of movements) {
-    if (mov > 0) {
-        depositsFor.push(mov);
-    }
-};
-
-
-const withdrawals = movements.filter(function(mov){
-    return mov < 0;
-});
-
-
+//
+//const depositsFor = [];
+//
+//for(const mov of movements) {
+//    if (mov > 0) {
+//        depositsFor.push(mov);
+//    }
+//};
+//
+//
+//const withdrawals = movements.filter(function(mov){
+//    return mov < 0;
+//});
 
 
 
 
-
-
+//reduce method boil doing all elements in to one single value
+//parameters available to callback in reduce method is accumulator current element index and array
+//accumulator is like snowbball callback called on each iteration
+const balanace = movements.reduce(function(acc, cur, i, arr){
+    console.log(`Iteration ${i}: ${acc}`);
+    
+    //acc sum of all previous
+    return acc + cur;
+    
+// on each loop iteration update the value of accumulator plus new current value
+},0);
+//initial value of acc start adding at 0
+console.log(balance);
+//3840
 
 
 
