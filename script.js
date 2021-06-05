@@ -108,15 +108,18 @@ displayMovements(account1.movements);
 
 const calcDisplayBalance = function(movements) {
     const balance = movements.reduce(function(acc, mov){
+        //accumulator first parameter starts at 0
+        //acc is added to each iteratoin of loop so have to return the value use acc to keep track of sum on, each iteration returns accumulator and current element sum
         return acc + mov;
     }, 0);
+    //it returns one single number so all values added together starter value 0
     //change balance labels text content
     labelBalance.textContent = `${balance} GBP`;
 };
 
 
-
 calcDisplayBalance(account1.movements);
+
 //function to compute usernames oneo for each user in accounts
 const createUsernames = function (accs) {
     //create function with username variable
@@ -140,8 +143,19 @@ console.log(accounts);
 
 const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 
+//reduce for maximum value sum multiplication or string object
+//find max value of movments
+const max = movements.reduce((acc, mov) => {
+   //usee acc to keep track of current maximum
+    //acc in this case starts as the first value in array
+    if (acc > mov) {
+        return acc; //have to return acc on next iteration don't change
+    } else {
+        //return movement as next iteration
+        return mov
+    }
+},moements[0]); //put first value of array
 
-//    
 //const username = user
 //.toLowerCase()
 //.split(' ') //split string into words by space
