@@ -137,8 +137,9 @@ const calcDisplaySummary = function(movements) {
     const interest = movements.filter(mov => mov > 0)
     .map(deposit => deposit * interestRate)
     .filter((int, i, arr)=> {
+        console.log(arr);
         return int >=1
-        //if interest is at least 1 pound
+        //only interest that are at least one will make it into the next step of pipeline (reduce)
         //exclude interest below one 
         //interests index arr
     })
@@ -172,7 +173,6 @@ const createUsernames = function (accs) {
 };
 
 createUsernames(accounts);
-console.log(accounts);
 
 //const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 
