@@ -92,7 +92,7 @@ const displayMovements = function (movements) {
         const html = `
        <div class="movements__row">
           <div class="movements__type movements__type--${type}">${i + 1} ${type}</div>
-          <div class="movements__value">${mov}</div>
+          <div class="movements__value">£${mov}</div>
         </div>
          `;
         containerMovements.insertAdjacentHTML('afterbegin', html);
@@ -114,7 +114,7 @@ const calcDisplayBalance = function(movements) {
     }, 0);
     //it returns one single number so all values added together starter value 0
     //change balance labels text content
-    labelBalance.textContent = `${balance} GBP`;
+    labelBalance.textContent = `£${balance}`;
 };
 
 
@@ -126,8 +126,28 @@ const calcDisplaySummary = function(movements) {
     const incomes = movements
     .filter(mov => mov > 0)
     .reduce((acc,mov) => acc + mov, 0);
-}
+    labelSumIn.textContent = `£${incomes}`;
+    
+    
+    const outgoings = movements.filter(mov => mov < 0)
+    .reduce((acc,mov) => acc + mov, 0);
+    labelSumOut.textContent = `£${Math.abs(outgoings)}`;
+    //calc interest
+    const interestRate = 0.3;
+    const interest = movements.filter(mov => mov > 0)
+    .map(deposit => deposit * interestRate)
+    .filter((int, i, arr)=> {
+        return int >=1
+        //if interest is at least 1 pound
+        //exclude interest below one 
+        //interests index arr
+    })
+    .reduce((acc, int) => acc + int, 0);
+    labelSumInterest.textContent = `£${interest}`
+    
+};
 
+calcDisplaySummary(account1.movements);
 
 
 
@@ -154,41 +174,41 @@ const createUsernames = function (accs) {
 createUsernames(accounts);
 console.log(accounts);
 
-const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
+//const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 
 //reduce for maximum value sum multiplication or string object
 //find max value of movments
-const max = movements.reduce((acc, mov) => {
-   //usee acc to keep track of current maximum
-    //acc in this case starts as the first value in array
-    if (acc > mov) {
-        return acc; //have to return acc on next iteration don't change
-    } else {
-        //return movement as next iteration
-        return mov
-    }
-},movements[0]); //put first value of array
+//const max = movements.reduce((acc, mov) => {
+//   //usee acc to keep track of current maximum
+//    //acc in this case starts as the first value in array
+//    if (acc > mov) {
+//        return acc; //have to return acc on next iteration don't change
+//    } else {
+//        //return movement as next iteration
+//        return mov
+//    }
+//},movements[0]); //put first value of array
 
 
-
-const euroToGBP = 1.3;
-//chain all the array methods into one
-movements.filter(function(mov){
-    //filter for movements positive
-    return mov > 0;
-}).map(function(mov, i, arr){
-    console.log(arr); //console.log arr to debug checkout current array in next array method call map method on result of filter this callback is called 5 times 
-    //chain map
-    //convert Euros into pounds
-   return  mov => mov * euroToGBP; 
-}).reduce(function(acc, mov){
-    //chain reduce add all values together accumulator mov
-    //add all values together
-    return acc + mov;
-},0);
+//
+//const euroToGBP = 1.3;
+////chain all the array methods into one
+//movements.filter(function(mov){
+//    //filter for movements positive
+//    return mov > 0;
+//}).map(function(mov, i, arr){
+//    console.log(arr); //console.log arr to debug checkout current array in next array method call map method on result of filter this callback is called 5 times 
+//    //chain map
+//    //convert Euros into pounds
+//   return  mov => mov * euroToGBP; 
+//}).reduce(function(acc, mov){
+//    //chain reduce add all values together accumulator mov
+//    //add all values together
+//    return acc + mov;
+//},0);
 //could chain other methods oo as long as they return arrays can't chain map or filter after reduce
 //data pipline processing
-console.log(eurToGBP);
+//console.log(eurToGBP);
 
 
 
