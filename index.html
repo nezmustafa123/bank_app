@@ -24,6 +24,8 @@
           type="text"
           placeholder="username"
           class="login__input login__input--user"
+          onfocus = "this.placeholder = ''"
+          onblur="this.placeholder = 'USERNAME'" 
         />
         <!-- In practice, use type="password" -->
         <input
@@ -31,6 +33,8 @@
           placeholder="PIN"
           maxlength="4"
           class="login__input login__input--pin"
+          onfocus = "this.placeholder = ''"
+          onblur="this.placeholder = 'PIN'" 
         />
         <button class="login__btn">&rarr;</button>
       </form>

@@ -2,7 +2,7 @@
 
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
-// BANKIST APP
+// BANK APP
 
 // Data
 
@@ -60,7 +60,7 @@ const btnTransfer = document.querySelector('.form__btn--transfer');
 const btnLoan = document.querySelector('.form__btn--loan');
 const btnClose = document.querySelector('.form__btn--close');
 const btnSort = document.querySelector('.btn--sort');
-
+//get input values
 const inputLoginUsername = document.querySelector('.login__input--user');
 const inputLoginPin = document.querySelector('.login__input--pin');
 const inputTransferTo = document.querySelector('.form__input--to');
@@ -157,8 +157,9 @@ calcDisplaySummary(account1.movements);
 //function to compute usernames oneo for each user in accounts
 const createUsernames = function (accs) {
     //create function with username variable
-    //recieve array of accounts modify array get as input
+    //recieve array of accounts modify array gotten by function as input
     accs.forEach(function (acc) {
+        //loop through array on each iteration create new property on object
         //create new property username equate it to user owner modified
         acc.username = acc.owner
             .toLowerCase()
@@ -174,43 +175,32 @@ const createUsernames = function (accs) {
 
 createUsernames(accounts);
 
-//const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 
-//reduce for maximum value sum multiplication or string object
-//find max value of movments
-//const max = movements.reduce((acc, mov) => {
-//   //usee acc to keep track of current maximum
-//    //acc in this case starts as the first value in array
-//    if (acc > mov) {
-//        return acc; //have to return acc on next iteration don't change
-//    } else {
-//        //return movement as next iteration
-//        return mov
-//    }
-//},movements[0]); //put first value of array
+//Event handler
+
+let currentAccount;
+
+//current account variable know from which account to transfer money from
 
 
-//
-//const euroToGBP = 1.3;
-////chain all the array methods into one
-//movements.filter(function(mov){
-//    //filter for movements positive
-//    return mov > 0;
-//}).map(function(mov, i, arr){
-//    console.log(arr); //console.log arr to debug checkout current array in next array method call map method on result of filter this callback is called 5 times 
-//    //chain map
-//    //convert Euros into pounds
-//   return  mov => mov * euroToGBP; 
-//}).reduce(function(acc, mov){
-//    //chain reduce add all values together accumulator mov
-//    //add all values together
-//    return acc + mov;
-//},0);
-//could chain other methods oo as long as they return arrays can't chain map or filter after reduce
-//data pipline processing
-//console.log(eurToGBP);
-
-
+//define variable outside function because need information about current account outside functions
+btnLogin.addEventListener('click', function(e){
+    //Prevent from from submitting
+    e.preventDefault();
+    console.log('LOGIN');
+    //find name from accounts arrat user inputted
+    //loop through accounts find username value
+   currentAccount =  accounts.find(acc => acc.username === inputLoginUsername.value);
+    //compare value user inputs to that username
+    
+    console.log(currentAccount);
+    //check to see if inputted pin is equal to current account pin
+    //convert to a Number
+    if(currentAccount.pin === Number(inputLoginPin.value)){
+        console.log('LOGIN');
+    }
+        
+});
 
 
 

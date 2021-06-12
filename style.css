@@ -60,6 +60,8 @@ nav {
 .login__input:focus {
   outline: none;
   border: 1px solid #ccc;
+  width: 16rem;
+  color: none;
 }
 
 .login__input::placeholder {
