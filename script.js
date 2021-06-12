@@ -131,21 +131,21 @@ const calcDisplayBalance = function(movements) {
 //calcDisplayBalance(account1.movements);
 
 
-const calcDisplaySummary = function(movements) {
-    //will recienve movements from account 1 atm
-    const incomes = movements
+const calcDisplaySummary = function(acc) {
+    //will recienve whole account object
+    const incomes = acc.movements
     .filter(mov => mov > 0)
     .reduce((acc,mov) => acc + mov, 0);
     labelSumIn.textContent = `£${incomes}`;
     
     
-    const outgoings = movements.filter(mov => mov < 0)
+    const outgoings = acc.movements.filter(mov => mov < 0)
     .reduce((acc,mov) => acc + mov, 0);
     labelSumOut.textContent = `£${Math.abs(outgoings)}`;
     //calc interest
-    const interestRate = 0.3;
-    const interest = movements.filter(mov => mov > 0)
-    .map(deposit => deposit * interestRate)
+//    const interestRate = 0.3;
+    const interest = acc.movements.filter(mov => mov > 0)
+    .map(deposit => deposit * acc.interestRate) //multiply each deposit with accounts interest rate
     .filter((int, i, arr)=> {
         console.log(arr);
         return int >=1
@@ -233,7 +233,7 @@ btnLogin.addEventListener('click', function(e){
         calcDisplayBalance(currentAccount.movements);
 
         //display summary
-        calcDisplaySummary(currentAccount.movements);
+        calcDisplaySummary(currentAccount);
    }
 
 
