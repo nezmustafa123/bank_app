@@ -60,7 +60,7 @@ nav {
 .login__input:focus {
   outline: none;
   border: 1px solid #ccc;
-  width: 16rem;
+  width: 15rem;
   color: none;
 }
 
@@ -96,7 +96,7 @@ nav {
   gap: 2rem;
 
   /* NOTE This creates the fade in/out anumation */
-/*  opacity: 0;*/
+  opacity: 0;
   transition: all 1s;
 }
 

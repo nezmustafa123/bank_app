@@ -10,7 +10,7 @@
 //whenever get data from api data comes in as objects
 const account1 = {
     owner: 'Nez Mustafa',
-    movements: [200, 450, -400, 3000, -650, -130, 70, 1300],
+    movements: [19000000, 200000, 490000, -14500, 30600000, -5006500, -13500, 700000, 1300000, -160030, 420000000],
     interestRate: 1.2, // %
     pin: 4563,
 };
@@ -24,7 +24,7 @@ const account2 = {
 
 const account3 = {
     owner: 'Axel Landin',
-    movements: [200, -200, 340, -300, -20, 50, 400, -460],
+    movements: [2500, -200, 340, -300, -20, 50, 400, -460],
     interestRate: 0.7,
     pin: 5177,
 };
@@ -36,12 +36,22 @@ const account4 = {
     pin: 8692,
 };
 
+const account5 = {
+    owner: 'John James',
+    movements: [4300, 1000, -700, 5000, 96000, -6500],
+    interestRate: 1.3,
+    pin: 9892,
+    
+};
+
+
+
 
 
 
 //put objects into array
 
-const accounts = [account1, account2, account3, account4];
+const accounts = [account1, account2, account3, account4, account5];
 
 // Elements
 const labelWelcome = document.querySelector('.welcome');
@@ -102,7 +112,7 @@ const displayMovements = function (movements) {
 };
 
 
-displayMovements(account1.movements);
+//displayMovements(account1.movements);
 //reference array in object
 
 
@@ -118,7 +128,7 @@ const calcDisplayBalance = function(movements) {
 };
 
 
-calcDisplayBalance(account1.movements);
+//calcDisplayBalance(account1.movements);
 
 
 const calcDisplaySummary = function(movements) {
@@ -148,7 +158,7 @@ const calcDisplaySummary = function(movements) {
     
 };
 
-calcDisplaySummary(account1.movements);
+//calcDisplaySummary(account1.movements);
 
 
 
@@ -187,20 +197,47 @@ let currentAccount;
 btnLogin.addEventListener('click', function(e){
     //Prevent from from submitting
     e.preventDefault();
-    console.log('LOGIN');
+//    console.log('LOGIN');
     //find name from accounts arrat user inputted
     //loop through accounts find username value
    currentAccount =  accounts.find(acc => acc.username === inputLoginUsername.value);
     //compare value user inputs to that username
-    
-    console.log(currentAccount);
+    //if no element matches condition then will return undefined
+//    console.log(currentAccount);
     //check to see if inputted pin is equal to current account pin
     //convert to a Number
-    if(currentAccount.pin === Number(inputLoginPin.value)){
-        console.log('LOGIN');
-    }
-        
-});
+    //optional chaining if account doesn't exist won't check pin
+    if (currentAccount?.pin === Number(inputLoginPin.value)) {
+//        console.log('LOGIN');
+       
+       //display UI and message
+       labelWelcome.textContent = `Welcome back, ${
+        currentAccount.owner.split(' ')[0]}`;
+        containerApp.style.opacity = 100;
+
+
+       //clear input fields  
+
+       inputLoginUsername.value = inputLoginPin.value = '';
+       inputLoginPin.blur();
+       //assignment operator right to left assign both
+
+
+        //display movements 
+        //dynamically display movements
+
+        displayMovements(currentAccount.movements);
+
+       //display balance 
+
+        calcDisplayBalance(currentAccount.movements);
+
+        //display summary
+        calcDisplaySummary(currentAccount.movements);
+   }
+
+
+   });
 
 
 
