@@ -116,15 +116,18 @@ const displayMovements = function (movements) {
 //reference array in object
 
 
-const calcDisplayBalance = function(movements) {
-    const balance = movements.reduce(function(acc, mov){
+const calcDisplayBalance = function(acc) {
+    //set new property in account object recieved
+    acc.balance = acc.movements.reduce(function(acc, mov){
         //accumulator first parameter starts at 0
         //acc is added to each iteratoin of loop so have to return the value use acc to keep track of sum on, each iteration returns accumulator and current element sum
         return acc + mov;
     }, 0);
+//    acc.balance = balance;
     //it returns one single number so all values added together starter value 0
     //change balance labels text content
-    labelBalance.textContent = `£${balance}`;
+    
+    labelBalance.textContent = `£${acc.balance}`;
 };
 
 
@@ -193,6 +196,11 @@ btnTransfer.addEventListener('click', function(e){
     const recieverAcc = accounts.find(
         acc => acc.username === inputTransferTo.value
     ); //account that has username value input into form
+    
+    console.log(amount, recieverAcc);
+    
+    
+    if(amount > 0 && )
 });
 
 
@@ -243,7 +251,7 @@ btnLogin.addEventListener('click', function(e){
 
        //display balance 
 
-        calcDisplayBalance(currentAccount.movements);
+        calcDisplayBalance(currentAccount);
 
         //display summary
         calcDisplaySummary(currentAccount);
