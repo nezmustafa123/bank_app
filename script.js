@@ -185,6 +185,19 @@ const createUsernames = function (accs) {
 
 createUsernames(accounts);
 
+//implement transfers
+btnTransfer.addEventListener('click', function(e){
+    e.preventDefault();
+    //vconvert to a number because value is string
+    const amount = Number(inputTransferAmount.value);
+    const recieverAcc = accounts.find(
+        acc => acc.username === inputTransferTo.value
+    ); //account that has username value input into form
+});
+
+
+
+
 
 //Event handler
 
@@ -238,8 +251,6 @@ btnLogin.addEventListener('click', function(e){
 
 
    });
-
-
 
 
 
