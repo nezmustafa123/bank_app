@@ -258,7 +258,7 @@ btnLogin.addEventListener('click', function(e){
     //convert to a Number
     //optional chaining if account doesn't exist won't check pin
         
-    inputTransferAmount.value = inputTransferTo = '';   
+    inputTransferAmount.value = inputTransferTo.value = '';   
         
         
     if (currentAccount?.pin === Number(inputLoginPin.value)) {
