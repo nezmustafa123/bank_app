@@ -116,7 +116,7 @@ const displayMovements = function (movements) {
 //reference array in object
 
 
-const calcDisplayBalance = function(acc) {
+const calcDisplayBalance = function(acc) {//pass in entire account
     //set new property in account object recieved
     acc.balance = acc.movements.reduce(function(acc, mov){
         //accumulator first parameter starts at 0
@@ -193,17 +193,39 @@ btnTransfer.addEventListener('click', function(e){
     e.preventDefault();
     //vconvert to a number because value is string
     const amount = Number(inputTransferAmount.value);
-    const recieverAcc = accounts.find(
+    const receiverAcc = accounts.find(
         acc => acc.username === inputTransferTo.value
-    ); //account that has username value input into form
+    ); //fund account that has username value qeual to value input into form 
     
-    console.log(amount, recieverAcc);
+//    console.log(amount, receiverAcc);
     
     
-    if(amount > 0 && )
+    if (amount > 0 && receiverAcc && currentAccount.balance >= amount && receiverAcc?.username !== currentAccount.username) {
+       //amount needs to be greater than 0 and balance needs to be greater than or equal to amount transferring
+       //optional chaining 
+//       receiverAcc? will be undefined if doesnt exist
+       console.log('Transfer valid');
+       
+       currentAccount.movements.push(-amount); //push negative amount on current account movements
+       receiverAcc.movements.push(amount);
+        //to the receiver account add positive moements
+        
+       }
 });
 
+const updateUI  = function(acc) {
+        //pass currrent account in as parameter
+        //display movements 
+        //dynamically display movements
 
+        displayMovements(acc.movements);
+
+       //display balance 
+        calcDisplayBalance(acc);
+
+        //display summary
+        calcDisplaySummary(acc);
+};
 
 
 
@@ -221,10 +243,11 @@ btnLogin.addEventListener('click', function(e){
 //    console.log('LOGIN');
     //find name from accounts arrat user inputted
     //loop through accounts find username value
-   currentAccount =  accounts.find(acc => acc.username === inputLoginUsername.value);
+  //points to same object in memory 
+    currentAccount =  accounts.find(acc => acc.username === inputLoginUsername.value);
     //compare value user inputs to that username
     //if no element matches condition then will return undefined
-//    console.log(currentAccount);
+
     //check to see if inputted pin is equal to current account pin
     //convert to a Number
     //optional chaining if account doesn't exist won't check pin
@@ -243,18 +266,11 @@ btnLogin.addEventListener('click', function(e){
        inputLoginPin.blur();
        //assignment operator right to left assign both
 
-
-        //display movements 
-        //dynamically display movements
-
-        displayMovements(currentAccount.movements);
-
-       //display balance 
-
-        calcDisplayBalance(currentAccount);
-
-        //display summary
-        calcDisplaySummary(currentAccount);
+          
+         //refactor three functions taking in current account1
+         updateUI(currentAccount);
+        
+        
    }
 
 
