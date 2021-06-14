@@ -209,6 +209,9 @@ btnTransfer.addEventListener('click', function(e){
        currentAccount.movements.push(-amount); //push negative amount on current account movements
        receiverAcc.movements.push(amount);
         //to the receiver account add positive moements
+        console.log(receiverAcc);
+       updateUI(currentAccount);
+
         
        }
 });
@@ -225,6 +228,9 @@ const updateUI  = function(acc) {
 
         //display summary
         calcDisplaySummary(acc);
+        
+        //update UI
+        
 };
 
 
@@ -251,6 +257,10 @@ btnLogin.addEventListener('click', function(e){
     //check to see if inputted pin is equal to current account pin
     //convert to a Number
     //optional chaining if account doesn't exist won't check pin
+        
+    inputTransferAmount.value = inputTransferTo = '';   
+        
+        
     if (currentAccount?.pin === Number(inputLoginPin.value)) {
 //        console.log('LOGIN');
        
