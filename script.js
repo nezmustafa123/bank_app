@@ -239,7 +239,7 @@ const updateUI  = function(acc) {
 
 let currentAccount;
 
-//current account variable know from which account to transfer money from
+//current account variable global know from which account to transfer money from
 
 
 //define variable outside function because need information about current account outside functions
@@ -279,13 +279,17 @@ btnLogin.addEventListener('click', function(e){
           
          //refactor three functions taking in current account1
          updateUI(currentAccount);
-        
-        
-   }
+        }
+       });
 
-
-   });
-
-
+        btnClose.addEventListener('click', function(e){
+          e.preventDefault();
+              console.log('Delete');
+        //if user equal to current user and parseInt
+       if(inputCloseUsername.value === currentAccount.username && Number(inputClosePin.value) === currentAccount.pin) {
+                 
+         }
+   
+});
 
 
