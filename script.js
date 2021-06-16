@@ -195,7 +195,7 @@ btnTransfer.addEventListener('click', function(e){
     const amount = Number(inputTransferAmount.value);
     const receiverAcc = accounts.find(
         acc => acc.username === inputTransferTo.value
-    ); //fund account that has username value qeual to value input into form 
+    ); //find account that has username value qeual to value input into form 
     
 //    console.log(amount, receiverAcc);
     
@@ -235,11 +235,11 @@ const updateUI  = function(acc) {
 
 
 
-//Event handler
+//Event handlers
 
 let currentAccount;
 
-//current account variable global know from which account to transfer money from
+//current account variable global so you know from which account to transfer money from and to afterwards
 
 
 //define variable outside function because need information about current account outside functions
@@ -267,6 +267,8 @@ btnLogin.addEventListener('click', function(e){
        //display UI and message
        labelWelcome.textContent = `Welcome back, ${
         currentAccount.owner.split(' ')[0]}`;
+
+
         containerApp.style.opacity = 100;
 
 
@@ -281,14 +283,34 @@ btnLogin.addEventListener('click', function(e){
          updateUI(currentAccount);
         }
        });
+        
 
+        //use find index and splice to delete specific account
         btnClose.addEventListener('click', function(e){
           e.preventDefault();
               console.log('Delete');
         //if user equal to current user and parseInt
        if(inputCloseUsername.value === currentAccount.username && Number(inputClosePin.value) === currentAccount.pin) {
-                 
-         }
+
+        //use splice method to delete account in accounts arary
+        //pass in calculated index using find index and delete item
+
+         const index = accounts.findIndex(acc => acc.username === currentAccount.username);
+          //returns index of first element in array that matches this condition
+        //loop over array on each iteration check if acc user name is same as
+
+          //delete account
+
+          accounts.splice(index, 1);
+
+          //hide UI
+          
+          containerApp.style.opacity = 0;
+
+         console.log(index);
+      }
+         inputCloseUsername.value = inputClosePin.value = '';
+
    
 });
 
