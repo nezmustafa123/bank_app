@@ -232,9 +232,28 @@ const updateUI  = function(acc) {
         //update UI
         
 };
+        
+        
+        
+//some and every some takes callback function tests for condition not jsut //equality 
 
+//check for equality using includes
+console.log(movements.includes(-130));
 
+const anyDesposits = movements.some(mov => mov > 0);
+//rewrite includes method using some
+console.log(movements.some(mov => mov === -130));
 
+console.log(anyDeposits);
+//true more than just one anyDesposit
+
+//check if there is movements above 1500
+
+const anyDesposits = movements.some(mov => mov > 1500); 
+        
+        
+        
+        
 //Event handlers
 
 let currentAccount;
@@ -315,12 +334,6 @@ btnLogin.addEventListener('click', function(e){
 });
 
 
-//some and every some takes callback function tests for condition not jsut //equality 
-//check for equality 
-console.log(movements.includes(-130));
 
-const anyDesposits = movements.some(mov => mov > 0);
-console.log(anyDeposits);
-//true more than just one anyDesposit
-//check if there is 
+
 
