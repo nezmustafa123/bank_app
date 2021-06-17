@@ -157,11 +157,11 @@ nav {
 }
 
 .movements__type--deposit {
-  background-color:  #0074a6;
+  background-color: #0074a6;
 }
 
 .movements__type--withdrawal {
-  background-color:  #444444;
+  background-color: #444444;
 }
 
 .movements__value {
@@ -221,10 +221,10 @@ nav {
 
 .operation--loan {
   background-color: rgb(0, 116, 166);
-    color: #ffffff;
+  color: #ffffff;
 }
 .operation--loan h2 {
-    color: #ffffff
+  color: #ffffff;
 }
 
 .operation--close {
