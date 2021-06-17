@@ -315,3 +315,12 @@ btnLogin.addEventListener('click', function(e){
 });
 
 
+//some and every some takes callback function tests for condition not jsut //equality 
+//check for equality 
+console.log(movements.includes(-130));
+
+const anyDesposits = movements.some(mov => mov > 0);
+console.log(anyDeposits);
+//true more than just one anyDesposit
+//check if there is 
+
