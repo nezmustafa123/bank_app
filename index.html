@@ -12,20 +12,20 @@
     />
 
     <link rel="stylesheet" href="style.css" />
-    <title>Bankist</title>
+    <title>Bank app</title>
   </head>
   <body>
     <!-- TOP NAVIGATION -->
     <nav>
-      <p class="welcome">Log in to your Barclays account </p>
+      <p class="welcome">Log in to your Barclays account</p>
       <img src="barclays.png" alt="Logo" class="logo" />
       <form class="login">
         <input
           type="text"
           placeholder="username"
           class="login__input login__input--user"
-          onfocus = "this.placeholder = ''"
-          onblur="this.placeholder = 'USERNAME'" 
+          onfocus="this.placeholder = ''"
+          onblur="this.placeholder = 'USERNAME'"
         />
         <!-- In practice, use type="password" -->
         <input
@@ -33,8 +33,8 @@
           placeholder="PIN"
           maxlength="4"
           class="login__input login__input--pin"
-          onfocus = "this.placeholder = ''"
-          onblur="this.placeholder = 'PIN'" 
+          onfocus="this.placeholder = ''"
+          onblur="this.placeholder = 'PIN'"
         />
         <button class="login__btn">&rarr;</button>
       </form>

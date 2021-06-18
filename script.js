@@ -222,23 +222,6 @@ const updateUI = function (acc) {
   //update UI
 };
 
-//
-////some and every some takes callback function tests for condition not jsut //equality
-//
-////check for equality using includes
-//console.log(movements.includes(-130));
-//
-//const anyDesposits = movements.some(mov => mov > 0);
-////rewrite includes method using some
-//console.log(movements.some(mov => mov === -130));
-//
-//console.log(anyDeposits);
-////true more than just one anyDesposit
-//
-////check if there is movements above 1500
-////if there's any value for which this condition is true then this method is true.
-//const anyDesposits = movements.some(mov => mov > 1500);
-
 //Event handlers
 
 let currentAccount;
@@ -286,7 +269,7 @@ btnLogin.addEventListener("click", function (e) {
   }
 });
 
-btnLoad.addEventListener("click", function (e) {
+btnLoan.addEventListener("click", function (e) {
   e.preventDefault();
 
   const amount = Number(inputLoanAmount.value);
@@ -294,8 +277,15 @@ btnLoad.addEventListener("click", function (e) {
     amount > 0 &&
     currentAccount.movements.some((mov) => mov >= amount * 0.1)
   ) {
-    //if any movement in current account is greater than 10 percent of requested amount
+    //if ANY movement in current account is greater than 10 percent of requested amount will return true
+    //add movement
+    currentAccount.movements.push(amount);
+
+    //update UI
+    updateUI(currentAccount);
+    //pass current account into update UI function
   }
+  inputLoanAmount.value = "";
 });
 
 //use find index and splice to delete specific account
