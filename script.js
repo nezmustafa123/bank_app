@@ -78,13 +78,19 @@ const inputClosePin = document.querySelector(".form__input--pin");
 
 //put the array and foreach in seperate function
 
-const displayMovements = function (movements) {
+const displayMovements = function (movements, sort = false) {
+  //set sort to false first then call it with true
   //empty container defaults
-  containerMovements.innderHTML = "";
+  containerMovements.innerHTML = "";
   //inner html returns everythign including html
   //function should recieve one array of movements and work with data
   //pass data directly in function
-  movements.forEach(function (mov, i) {
+  //don't sort underlying movements array create copy using slice method
+  const movs = sort ? movements.slice().sort((a, b) => a - b) : movements;
+  //if sort is false then should just return movements and print on screen as is
+  console.log(movs);
+  movs.forEach(function (mov, i) {
+    //use movements just created
     //get current movement and index
 
     //if current movement greater than zero movement should be deposit
@@ -317,4 +323,15 @@ btnClose.addEventListener("click", function (e) {
     console.log(index);
   }
   inputCloseUsername.value = inputClosePin.value = "";
+});
+
+//state variable
+let sorted = false;
+
+btnSort.addEventListener("click", function (e) {
+  e.preventDefault();
+  displayMovements(currentAccount.movements, !sorted);
+  //if sorted is false iniitially want sorted true
+  //then wanted sorted to be true
+  sorted = !sorted;
 });
