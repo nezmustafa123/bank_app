@@ -87,7 +87,8 @@ const displayMovements = function (movements, sort = false) {
   //pass data directly in function
   //don't sort underlying movements array create copy using slice method
   const movs = sort ? movements.slice().sort((a, b) => a - b) : movements;
-  //if sort is false then should just return movements and print on screen as is
+  //if sort is false then should just return movements as is and print on screen as is
+  //if true then create shallow copy using slice then sort
   console.log(movs);
   movs.forEach(function (mov, i) {
     //use movements just created
@@ -186,7 +187,7 @@ createUsernames(accounts);
 btnTransfer.addEventListener("click", function (e) {
   e.preventDefault();
   //vconvert to a number because value is string
-  const amount = Number(inputTransferAmount.value);
+  const amount = +inputTransferAmount.value;
   const receiverAcc = accounts.find(
     (acc) => acc.username === inputTransferTo.value
   ); //find account that has username value qeual to value input into form
@@ -254,7 +255,7 @@ btnLogin.addEventListener("click", function (e) {
 
   inputTransferAmount.value = inputTransferTo.value = "";
 
-  if (currentAccount?.pin === Number(inputLoginPin.value)) {
+  if (currentAccount?.pin === +inputLoginPin.value) {
     //        console.log('LOGIN');
 
     //display UI and message
@@ -278,7 +279,7 @@ btnLogin.addEventListener("click", function (e) {
 btnLoan.addEventListener("click", function (e) {
   e.preventDefault();
 
-  const amount = Number(inputLoanAmount.value);
+  const amount = +inputLoanAmount.value;
   if (
     amount > 0 &&
     currentAccount.movements.some((mov) => mov >= amount * 0.1)
@@ -301,11 +302,11 @@ btnClose.addEventListener("click", function (e) {
   //if user equal to current user and parseInt
   if (
     inputCloseUsername.value === currentAccount.username &&
-    Number(inputClosePin.value) === currentAccount.pin
+    +inputClosePin.value === currentAccount.pin
   ) {
     //use splice method to delete account in accounts arary
     //pass in calculated index using find index and delete item
-
+    //swap number with plus sign
     const index = accounts.findIndex(
       (acc) => acc.username === currentAccount.username
     );
@@ -330,6 +331,7 @@ let sorted = false;
 
 btnSort.addEventListener("click", function (e) {
   e.preventDefault();
+  //olt pass in sported parameter/arument in this event handler
   displayMovements(currentAccount.movements, !sorted);
   //if sorted is false iniitially want sorted true
   //then wanted sorted to be true
