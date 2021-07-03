@@ -105,7 +105,7 @@ const displayMovements = function (movements, sort = false) {
           <div class="movements__type movements__type--${type}">${
       i + 1
     } ${type}</div>
-          <div class="movements__value">£${mov}</div>
+          <div class="movements__value">£${mov.toFixed(2)}</div>
         </div>
          `;
     containerMovements.insertAdjacentHTML("afterbegin", html);
@@ -129,7 +129,7 @@ const calcDisplayBalance = function (acc) {
   //it returns one single number so all values added together starter value 0
   //change balance labels text content
 
-  labelBalance.textContent = `£${acc.balance}`;
+  labelBalance.textContent = `£${acc.balance.toFixed(2)} £`;
 };
 
 //calcDisplayBalance(account1.movements);
@@ -144,7 +144,7 @@ const calcDisplaySummary = function (acc) {
   const outgoings = acc.movements
     .filter((mov) => mov < 0)
     .reduce((acc, mov) => acc + mov, 0);
-  labelSumOut.textContent = `£${Math.abs(outgoings)}`;
+  labelSumOut.textContent = `£${Math.abs(outgoings.toFixed(2))}`;
   //calc interest
   //    const interestRate = 0.3;
   const interest = acc.movements
@@ -158,7 +158,7 @@ const calcDisplaySummary = function (acc) {
       //interests index arr
     })
     .reduce((acc, int) => acc + int, 0);
-  labelSumInterest.textContent = `£${interest}`;
+  labelSumInterest.textContent = `£${interest.toFixed(2)}`;
 };
 
 //calcDisplaySummary(account1.movements);
@@ -279,7 +279,7 @@ btnLogin.addEventListener("click", function (e) {
 btnLoan.addEventListener("click", function (e) {
   e.preventDefault();
 
-  const amount = +inputLoanAmount.value;
+  const amount = Math.floor(inputLoanAmount.value); //round down
   if (
     amount > 0 &&
     currentAccount.movements.some((mov) => mov >= amount * 0.1)
@@ -343,18 +343,3 @@ btnSort.addEventListener("click", function (e) {
 //will load all the elements with movements value class
 
 //add evelnt listener to label blance to get values added dynamically need to use event handler
-
-labelBalance.addEventListener("click", function () {
-  const movementsUI = Array.from(
-    document.querySelectorAll(".movements__value"),
-    (el) => Number(el.textContent.replace("£", ""))
-  );
-  // console.log(movementsUI.map((el) => Number(el.textContent.replace("£", ""))));
-  //CAN also use map method now that it is converted into an array
-  //create array from movements values dynamically added on screen using array from then use callback functoin to get rid of poiund sign
-  console.log(movementsUI);
-
-  ///can also do this
-
-  movementsUI2 = [...documents.querySelectorAll(".movements__calue")];
-});
