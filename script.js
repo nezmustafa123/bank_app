@@ -350,5 +350,8 @@ labelBalance.addEventListener("click", function () {
     //colour every other row check if index is divisible by 2 get the row itself and index
     if (i % 2 === 0) row.style.backgroundColor = "orangered";
     //if index is even then change row colour to orange red
+    // 0 3 6 9
+
+    if (i % 3 === 0) row.style.backgroundColor = "blue";
   });
 });
