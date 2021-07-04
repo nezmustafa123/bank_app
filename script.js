@@ -155,7 +155,7 @@ const calcDisplaySummary = function (acc) {
       return int >= 1;
       //only interest that are at least one will make it into the next step of pipeline (reduce)
       //exclude interest below one
-      //interests index arr
+      // has access to interests index arr
     })
     .reduce((acc, int) => acc + int, 0);
   labelSumInterest.textContent = `£${interest.toFixed(2)}`;
@@ -343,3 +343,12 @@ btnSort.addEventListener("click", function (e) {
 //will load all the elements with movements value class
 
 //add evelnt listener to label blance to get values added dynamically need to use event handler
+
+labelBalance.addEventListener("click", function () {
+  //add to event handler
+  [...document.querySelectorAll(".movements__row")].forEach(function (row, i) {
+    //colour every other row check if index is divisible by 2 get the row itself and index
+    if (i % 2 === 0) row.style.backgroundColor = "orangered";
+    //if index is even then change row colour to orange red
+  });
+});
