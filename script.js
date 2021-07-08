@@ -234,8 +234,25 @@ const updateUI = function (acc) {
 let currentAccount;
 
 //current account variable global so you know from which account to transfer money from and to afterwards
-
+//fake always logged in
+//automatically login change current account and ui
+currentAccount = account1;
+updateUI(currentAccount);
+containerApp.style.opacity = 100;
 //define variable outside function because need information about current account outside functions
+
+const now = new Date();
+//create new date object
+labelDate.textContent = now;
+//set datelabel to now
+const day = new.getDate();
+//day
+const month = now.getMonth() + 1;
+const year = now.getFullYear();
+const hour = now.getHours();
+const min = now.getMinutes();
+
+labelDate.textContent = `${day}/${month}/${year}, ${hour}:${min}`;
 btnLogin.addEventListener("click", function (e) {
   //Prevent from from submitting
   e.preventDefault();
