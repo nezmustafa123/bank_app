@@ -285,8 +285,8 @@ btnTransfer.addEventListener("click", function (e) {
     //to the receiver account add positive moements
 
     //add transfer date
-    currentAccount.movementsDates.push(new Date()); //create new date and push to current
-    receiverAcc.movementsDates.push(new Date()); // add to reciever account
+    currentAccount.movementsDates.push(new Date().toISOString()); //create new date and push to current
+    receiverAcc.movementsDates.push(new Date().toISOString()); // add to reciever account
     console.log(receiverAcc);
     updateUI(currentAccount);
   }
@@ -357,8 +357,8 @@ btnLogin.addEventListener("click", function (e) {
     //use pad start two charachters long write zero if day 16 zero wouldn't be added
     const month = `${now.getMonth() + 1}`.padStart(2, 0);
     const year = now.getFullYear();
-    const hour = now.getHours();
-    const min = now.getMinutes();
+    const hour = `${now.getHours()}`.padStart(2, 0);
+    const min = `${now.getMinutes()}`.padStart(2, 0);
 
     //create new string with the vvalues from date object
     labelDate.textContent = `${day}/${month}/${year}, ${hour}:${min}`;
@@ -387,7 +387,7 @@ btnLoan.addEventListener("click", function (e) {
     currentAccount.movements.push(amount);
 
     //add loan date
-    currentAccount.movementsDates.push(new Date()); //create new date and push to current
+    currentAccount.movementsDates.push(new Date().toISOString()); //create new date and push to current
 
     //update UI
     updateUI(currentAccount);
