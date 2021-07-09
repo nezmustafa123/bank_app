@@ -11,11 +11,23 @@
 const account1 = {
   owner: "Nez Mustafa",
   movements: [
-    19000000, 200000, 490000, -14500, 30600000, -5006500, -13500, 700000,
-    1300000, -160030, 420000000,
+    19000000, 200000, 490000, -14500, 306000, -5006500, -13500, 700000,
   ],
   interestRate: 1.2, // %
   pin: 4563,
+
+  movementsDates: [
+    "2019-11-18T21:31:17.178Z",
+    "2019-12-23T07:42:02.383Z",
+    "2020-01-28T09:15:04.904Z",
+    "2020-04-01T10:17:24.185Z",
+    "2020-05-08T14:11:59.604Z",
+    "2020-05-27T17:01:17.194Z",
+    "2020-07-11T23:36:17.929Z",
+    "2020-07-12T10:51:36.790Z",
+  ],
+  currency: "GBP",
+  locale: "en-gb", // en-gb
 };
 
 const account2 = {
@@ -23,6 +35,19 @@ const account2 = {
   movements: [5000, 3400, -150, -790, -3210, -1000, 8500, -30],
   interestRate: 1.5,
   pin: 7309,
+
+  movementsDates: [
+    "2019-11-01T13:15:33.035Z",
+    "2019-11-30T09:48:16.867Z",
+    "2019-12-25T06:44:23.907Z",
+    "2020-01-25T14:18:46.235Z",
+    "2020-02-05T16:33:06.386Z",
+    "2020-04-10T14:13:26.374Z",
+    "2020-06-25T18:49:59.371Z",
+    "2020-07-26T12:01:20.894Z",
+  ],
+  currency: "GBP",
+  locale: "en-gb", // en-gb
 };
 
 const account3 = {
@@ -30,20 +55,59 @@ const account3 = {
   movements: [2500, -200, 340, -300, -20, 50, 400, -460],
   interestRate: 0.7,
   pin: 5177,
+
+  movementsDates: [
+    "2019-11-01T13:15:33.035Z",
+    "2019-11-30T09:48:16.867Z",
+    "2019-12-25T06:04:23.907Z",
+    "2020-01-25T14:18:46.235Z",
+    "2020-02-18T16:33:06.386Z",
+    "2020-04-10T14:43:26.374Z",
+    "2020-06-25T18:39:59.371Z",
+    "2020-07-26T12:08:20.894Z",
+  ],
+  currency: "GBP",
+  locale: "en-gb", // en-gb
 };
 
 const account4 = {
   owner: "Olivia Jones",
-  movements: [430, 1000, 700, 50, 90],
+  movements: [430, 1000, 700, 50, 90, 3920, 1000, 800],
   interestRate: 1,
   pin: 8692,
+
+  movementsDates: [
+    "2019-11-01T13:15:33.035Z",
+    "2019-11-30T09:48:16.867Z",
+    "2019-12-25T06:04:23.907Z",
+    "2020-01-25T14:18:46.235Z",
+    "2020-02-05T16:33:06.386Z",
+    "2020-04-10T14:43:26.374Z",
+    "2020-06-25T18:49:59.371Z",
+    "2020-07-26T12:01:20.894Z",
+  ],
+  currency: "GBP",
+  locale: "en-gb", // en-gb
 };
 
 const account5 = {
   owner: "John James",
-  movements: [4300, 1000, -700, 5000, 96000, -6500],
+  movements: [4300, 1000, -700, 5000, 96000, -6500, 2300, 1220],
   interestRate: 1.3,
   pin: 9892,
+
+  movementsDates: [
+    "2019-11-01T13:15:33.035Z",
+    "2019-11-30T09:48:16.867Z",
+    "2019-12-25T06:04:23.907Z",
+    "2020-01-25T14:18:46.235Z",
+    "2020-02-05T16:33:06.386Z",
+    "2020-04-10T14:43:26.374Z",
+    "2020-06-25T18:49:59.371Z",
+    "2020-07-26T12:01:20.894Z",
+  ],
+  currency: "GBP",
+  locale: "en-gb", // en-gb
 };
 
 //put objects into array
@@ -78,7 +142,7 @@ const inputClosePin = document.querySelector(".form__input--pin");
 
 //put the array and foreach in seperate function
 
-const displayMovements = function (movements, sort = false) {
+const displayMovements = function (acc, sort = false) {
   //set sort to false first then call it with true
   //empty container defaults
   containerMovements.innerHTML = "";
@@ -86,17 +150,26 @@ const displayMovements = function (movements, sort = false) {
   //function should recieve one array of movements and work with data
   //pass data directly in function
   //don't sort underlying movements array create copy using slice method
-  const movs = sort ? movements.slice().sort((a, b) => a - b) : movements;
+  const movs = sort
+    ? acc.movements.slice().sort((a, b) => a - b)
+    : acc.movements;
   //if sort is false then should just return movements as is and print on screen as is
   //if true then create shallow copy using slice then sort
   console.log(movs);
   movs.forEach(function (mov, i) {
+    //;oop through the current accounts movements
     //use movements just created
     //get current movement and index
 
     //if current movement greater than zero movement should be deposit
     const type = mov > 0 ? "deposit" : "withdrawal";
-
+    //use the available index to also loop over movementDates reference elements with the equivalent index in dates array
+    const date = new Date(acc.movementsDates[i]); //convert back to javascript object to get day month etc
+    const day = `${date.getDate()}`.padStart(2, 0);
+    const month = `${date.getMonth() + 1}`.padStart(2, 0);
+    const year = date.getFullYear();
+    //get day month year
+    const displayDate = `${day}/${month}/${year}`;
     //html template literal
     //construct class using template literal
     //mov current element
@@ -105,6 +178,7 @@ const displayMovements = function (movements, sort = false) {
           <div class="movements__type movements__type--${type}">${
       i + 1
     } ${type}</div>
+          <div class="movements__date">${displayDate}</div>
           <div class="movements__value">£${mov.toFixed(2)}</div>
         </div>
          `;
@@ -193,6 +267,7 @@ btnTransfer.addEventListener("click", function (e) {
   ); //find account that has username value qeual to value input into form
 
   //    console.log(amount, receiverAcc);
+  inputTransferAmount.value = inputTransferTo.value = "";
 
   if (
     amount > 0 &&
@@ -208,6 +283,10 @@ btnTransfer.addEventListener("click", function (e) {
     currentAccount.movements.push(-amount); //push negative amount on current account movements
     receiverAcc.movements.push(amount);
     //to the receiver account add positive moements
+
+    //add transfer date
+    currentAccount.movementsDates.push(new Date()); //create new date and push to current
+    receiverAcc.movementsDates.push(new Date()); // add to reciever account
     console.log(receiverAcc);
     updateUI(currentAccount);
   }
@@ -218,7 +297,7 @@ const updateUI = function (acc) {
   //display movements
   //dynamically display movements
 
-  displayMovements(acc.movements);
+  displayMovements(acc);
 
   //display balance
   calcDisplayBalance(acc);
@@ -235,24 +314,12 @@ let currentAccount;
 
 //current account variable global so you know from which account to transfer money from and to afterwards
 //fake always logged in
-//automatically login change current account and ui
-currentAccount = account1;
-updateUI(currentAccount);
-containerApp.style.opacity = 100;
+//automatically login change current account and ui login as account one
+// currentAccount = account1;
+// updateUI(currentAccount);
+// containerApp.style.opacity = 100;
 //define variable outside function because need information about current account outside functions
 
-const now = new Date();
-//create new date object
-labelDate.textContent = now;
-//set datelabel to now
-const day = new.getDate();
-//day
-const month = now.getMonth() + 1;
-const year = now.getFullYear();
-const hour = now.getHours();
-const min = now.getMinutes();
-
-labelDate.textContent = `${day}/${month}/${year}, ${hour}:${min}`;
 btnLogin.addEventListener("click", function (e) {
   //Prevent from from submitting
   e.preventDefault();
@@ -281,6 +348,20 @@ btnLogin.addEventListener("click", function (e) {
     }`;
 
     containerApp.style.opacity = 100;
+    //whenever
+    const now = new Date();
+    // create new date object now's date
+    // labelDate.textContent = now;
+    //set datelabel to now
+    const day = `${now.getDate()}`.padStart(2, 0); //day
+    //use pad start two charachters long write zero if day 16 zero wouldn't be added
+    const month = `${now.getMonth() + 1}`.padStart(2, 0);
+    const year = now.getFullYear();
+    const hour = now.getHours();
+    const min = now.getMinutes();
+
+    //create new string with the vvalues from date object
+    labelDate.textContent = `${day}/${month}/${year}, ${hour}:${min}`;
 
     //clear input fields
 
@@ -304,6 +385,9 @@ btnLoan.addEventListener("click", function (e) {
     //if ANY movement in current account is greater than 10 percent of requested amount will return true
     //add movement
     currentAccount.movements.push(amount);
+
+    //add loan date
+    currentAccount.movementsDates.push(new Date()); //create new date and push to current
 
     //update UI
     updateUI(currentAccount);
@@ -349,7 +433,7 @@ let sorted = false;
 btnSort.addEventListener("click", function (e) {
   e.preventDefault();
   //olt pass in sported parameter/arument in this event handler
-  displayMovements(currentAccount.movements, !sorted);
+  displayMovements(currentAccount, !sorted);
   //if sorted is false iniitially want sorted true
   //then wanted sorted to be true
   sorted = !sorted;
