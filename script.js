@@ -10,9 +10,7 @@
 //whenever get data from api data comes in as objects
 const account1 = {
   owner: "Nez Mustafa",
-  movements: [
-    19000000, 200000, 490000, -14500, 306000, -5006500, -13500, 700000,
-  ],
+  movements: [19000, 2000, 4900, 14500, 3060, -5006, -13500, 7000],
   interestRate: 1.2, // %
   pin: 4563,
 
@@ -23,8 +21,8 @@ const account1 = {
     "2020-04-01T10:17:24.185Z",
     "2020-05-08T14:11:59.604Z",
     "2020-05-27T17:01:17.194Z",
-    "2020-07-11T23:36:17.929Z",
-    "2020-07-12T10:51:36.790Z",
+    "2021-07-11T23:36:17.929Z",
+    "2021-07-12T10:51:36.790Z",
   ],
   currency: "GBP",
   locale: "en-gb", // en-gb
@@ -83,8 +81,8 @@ const account4 = {
     "2020-01-25T14:18:46.235Z",
     "2020-02-05T16:33:06.386Z",
     "2020-04-10T14:43:26.374Z",
-    "2020-06-25T18:49:59.371Z",
-    "2020-07-26T12:01:20.894Z",
+    "2021-07-10T18:49:59.371Z",
+    "2021-07-11T12:01:20.894Z",
   ],
   currency: "GBP",
   locale: "en-gb", // en-gb
@@ -104,7 +102,7 @@ const account5 = {
     "2020-02-05T16:33:06.386Z",
     "2020-04-10T14:43:26.374Z",
     "2020-06-25T18:49:59.371Z",
-    "2020-07-26T12:01:20.894Z",
+    "2021-07-11T12:01:20.894Z",
   ],
   currency: "GBP",
   locale: "en-gb", // en-gb
@@ -140,6 +138,27 @@ const inputLoanAmount = document.querySelector(".form__input--loan-amount");
 const inputCloseUsername = document.querySelector(".form__input--user");
 const inputClosePin = document.querySelector(".form__input--pin");
 
+const formatMovementDate = function (date) {
+  const calcDaysPassed = (date1, date2) => {
+    return Math.round(Math.abs(date2 - date1) / (1000 * 60 * 60 * 24));
+  };
+
+  const daysPassed = calcDaysPassed(new Date(), date);
+  //days passed between now and dates in object
+  console.log(daysPassed);
+
+  if (daysPassed === 0) return "Today"; //when hit return function stops executing
+  if (daysPassed === 1) return "Yesterday";
+  if (daysPassed <= 7) return `${daysPassed} days ago`;
+  else {
+    const day = `${date.getDate()}`.padStart(2, 0);
+    const month = `${date.getMonth() + 1}`.padStart(2, 0);
+    const year = date.getFullYear();
+    //get day month year
+    return `${day}/${month}/${year}`;
+  }
+};
+
 //put the array and foreach in seperate function
 
 const displayMovements = function (acc, sort = false) {
@@ -165,11 +184,7 @@ const displayMovements = function (acc, sort = false) {
     const type = mov > 0 ? "deposit" : "withdrawal";
     //use the available index to also loop over movementDates reference elements with the equivalent index in dates array
     const date = new Date(acc.movementsDates[i]); //convert back to javascript object to get day month etc
-    const day = `${date.getDate()}`.padStart(2, 0);
-    const month = `${date.getMonth() + 1}`.padStart(2, 0);
-    const year = date.getFullYear();
-    //get day month year
-    const displayDate = `${day}/${month}/${year}`;
+    const displayDate = formatMovementDate(date); //printing the result of the formatMovementDate in the template literal (display date)
     //html template literal
     //construct class using template literal
     //mov current element
@@ -178,7 +193,7 @@ const displayMovements = function (acc, sort = false) {
           <div class="movements__type movements__type--${type}">${
       i + 1
     } ${type}</div>
-          <div class="movements__date">${displayDate}</div>
+          <div class="movements__date">${displayDate}</div> 
           <div class="movements__value">£${mov.toFixed(2)}</div>
         </div>
          `;
@@ -348,7 +363,7 @@ btnLogin.addEventListener("click", function (e) {
     }`;
 
     containerApp.style.opacity = 100;
-    //whenever
+    //whenever log in create new date
     const now = new Date();
     // create new date object now's date
     // labelDate.textContent = now;
