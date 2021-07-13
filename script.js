@@ -339,8 +339,19 @@ let currentAccount;
 //experimenting with new date api
 
 const now = new Date();
-labelDate.textContent = new Intl.DateTimeFormat("gb-UK").format(now);
+const options = {
+  //define options object outside
+  hour: "numeric",
+  minute: "numeric",
+  day: "numeric",
+  month: "long", //specify proerties for days month and year in object pass it into method
+  year: "numeric",
+  weekday: "long",
+};
+
+labelDate.textContent = new Intl.DateTimeFormat("gb-UK", options).format(now);
 //set text content to formatted date using internatinoalisation api use time and date format pass in locale
+
 btnLogin.addEventListener("click", function (e) {
   //Prevent from from submitting
   e.preventDefault();
