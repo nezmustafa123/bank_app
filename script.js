@@ -333,8 +333,14 @@ let currentAccount;
 // currentAccount = account1;
 // updateUI(currentAccount);
 // containerApp.style.opacity = 100;
-//define variable outside function because need information about current account outside functions
 
+//define variable outside function because need information about current account outside login functions
+
+//experimenting with new date api
+
+const now = new Date();
+labelDate.textContent = new Intl.DateTimeFormat("gb-UK").format(now);
+//set text content to formatted date using internatinoalisation api use time and date format pass in locale
 btnLogin.addEventListener("click", function (e) {
   //Prevent from from submitting
   e.preventDefault();
@@ -364,7 +370,7 @@ btnLogin.addEventListener("click", function (e) {
 
     containerApp.style.opacity = 100;
     //whenever log in create new date
-    const now = new Date();
+    // const now = new Date();
     // create new date object now's date
     // labelDate.textContent = now;
     //set datelabel to now
@@ -375,8 +381,8 @@ btnLogin.addEventListener("click", function (e) {
     const hour = `${now.getHours()}`.padStart(2, 0);
     const min = `${now.getMinutes()}`.padStart(2, 0);
 
-    //create new string with the vvalues from date object
-    labelDate.textContent = `${day}/${month}/${year}, ${hour}:${min}`;
+    //create new string with the values from date object set it to labeldate
+    // labelDate.textContent = `${day}/${month}/${year}, ${hour}:${min}`;
 
     //clear input fields
 
