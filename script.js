@@ -64,8 +64,8 @@ const account3 = {
     "2020-06-25T18:39:59.371Z",
     "2020-07-26T12:08:20.894Z",
   ],
-  currency: "GBP",
-  locale: "en-gb", // en-gb
+  currency: "USD",
+  locale: "en-US", // en-gb
 };
 
 const account4 = {
@@ -104,8 +104,8 @@ const account5 = {
     "2020-06-25T18:49:59.371Z",
     "2021-07-11T12:01:20.894Z",
   ],
-  currency: "GBP",
-  locale: "en-gb", // en-gb
+  currency: "USD",
+  locale: "en-US", // en-gb
 };
 
 //put objects into array
@@ -138,30 +138,34 @@ const inputLoanAmount = document.querySelector(".form__input--loan-amount");
 const inputCloseUsername = document.querySelector(".form__input--user");
 const inputClosePin = document.querySelector(".form__input--pin");
 
-const formatMovementDate = function (date) {
+const formatMovementDate = function (date, locale) {
+  //takes in the date from moements date as well as locale
+  //format the movements date
   const calcDaysPassed = (date1, date2) => {
     return Math.round(Math.abs(date2 - date1) / (1000 * 60 * 60 * 24));
   };
 
-  const daysPassed = calcDaysPassed(new Date(), date);
-  //days passed between now and dates in object
+  const daysPassed = calcDaysPassed(new Date(), date); //call calcdays here
+  //days passed between now and movement dates in object
   console.log(daysPassed);
 
   if (daysPassed === 0) return "Today"; //when hit return function stops executing
   if (daysPassed === 1) return "Yesterday";
   if (daysPassed <= 7) return `${daysPassed} days ago`;
   else {
-    const day = `${date.getDate()}`.padStart(2, 0);
-    const month = `${date.getMonth() + 1}`.padStart(2, 0);
-    const year = date.getFullYear();
-    //get day month year
-    return `${day}/${month}/${year}`;
+    // const day = `${date.getDate()}`.padStart(2, 0);
+    // const month = `${date.getMonth() + 1}`.padStart(2, 0);
+    // const year = date.getFullYear();
+    // //get day month year
+    // return `${day}/${month}/${year}`;
+    return new Intl.DateTimeFormat(locale).format(date); //pass in locale into function and return return date that's formatted locale revieved
   }
 };
 
 //put the array and foreach in seperate function
 
 const displayMovements = function (acc, sort = false) {
+  //takes in current account which is object
   //set sort to false first then call it with true
   //empty container defaults
   containerMovements.innerHTML = "";
@@ -183,8 +187,8 @@ const displayMovements = function (acc, sort = false) {
     //if current movement greater than zero movement should be deposit
     const type = mov > 0 ? "deposit" : "withdrawal";
     //use the available index to also loop over movementDates reference elements with the equivalent index in dates array
-    const date = new Date(acc.movementsDates[i]); //convert back to javascript object to get day month etc
-    const displayDate = formatMovementDate(date); //printing the result of the formatMovementDate in the template literal (display date)
+    const date = new Date(acc.movementsDates[i]); //convert back to javascript object to get day month etc date is movements date from object
+    const displayDate = formatMovementDate(date, acc.locale); //printing the result of the formatMovementDate in the template literal (display date)
     //html template literal
     //construct class using template literal
     //mov current element
@@ -303,7 +307,7 @@ btnTransfer.addEventListener("click", function (e) {
     currentAccount.movementsDates.push(new Date().toISOString()); //create new date and push to current
     receiverAcc.movementsDates.push(new Date().toISOString()); // add to reciever account
     console.log(receiverAcc);
-    updateUI(currentAccount);
+    updateUI(currentAccount); //update ui takes in current account
   }
 });
 
@@ -380,12 +384,13 @@ btnLogin.addEventListener("click", function (e) {
     };
 
     //can get locale from broswer itself
-    const locale = navigator.language;
-    console.log(locale);
+    // const locale = navigator.language;
+    // console.log(locale);
 
-    labelDate.textContent = new Intl.DateTimeFormat(locale, options).format(
-      now
-    );
+    labelDate.textContent = new Intl.DateTimeFormat(
+      currentAccount.locale,
+      options
+    ).format(now); //get local from the objects depending on who is logged in
 
     // //whenever log in create new date
     // // const now = new Date();
