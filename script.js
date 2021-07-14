@@ -336,20 +336,6 @@ let currentAccount;
 
 //define variable outside function because need information about current account outside login functions
 
-//experimenting with new date api
-
-const now = new Date();
-const options = {
-  //define options object outside
-  hour: "numeric",
-  minute: "numeric",
-  day: "numeric",
-  month: "long", //specify proerties for days month and year in object pass it into method
-  year: "numeric",
-  weekday: "long",
-};
-
-labelDate.textContent = new Intl.DateTimeFormat("gb-UK", options).format(now);
 //set text content to formatted date using internatinoalisation api use time and date format pass in locale
 
 btnLogin.addEventListener("click", function (e) {
@@ -380,17 +366,38 @@ btnLogin.addEventListener("click", function (e) {
     }`;
 
     containerApp.style.opacity = 100;
-    //whenever log in create new date
-    // const now = new Date();
-    // create new date object now's date
-    // labelDate.textContent = now;
-    //set datelabel to now
-    const day = `${now.getDate()}`.padStart(2, 0); //day
-    //use pad start two charachters long write zero if day 16 zero wouldn't be added
-    const month = `${now.getMonth() + 1}`.padStart(2, 0);
-    const year = now.getFullYear();
-    const hour = `${now.getHours()}`.padStart(2, 0);
-    const min = `${now.getMinutes()}`.padStart(2, 0);
+    //experimenting with new date api
+
+    const now = new Date();
+    const options = {
+      //define options object outside
+      hour: "numeric",
+      minute: "numeric",
+      day: "numeric",
+      month: "long", //specify proerties for days month and year in object pass it into method
+      year: "numeric",
+      weekday: "long",
+    };
+
+    //can get locale from broswer itself
+    const locale = navigator.language;
+    console.log(locale);
+
+    labelDate.textContent = new Intl.DateTimeFormat(locale, options).format(
+      now
+    );
+
+    // //whenever log in create new date
+    // // const now = new Date();
+    // // create new date object now's date
+    // // labelDate.textContent = now;
+    // //set datelabel to now
+    // const day = `${now.getDate()}`.padStart(2, 0); //day
+    // //use pad start two charachters long write zero if day 16 zero wouldn't be added
+    // const month = `${now.getMonth() + 1}`.padStart(2, 0);
+    // const year = now.getFullYear();
+    // const hour = `${now.getHours()}`.padStart(2, 0);
+    // const min = `${now.getMinutes()}`.padStart(2, 0);
 
     //create new string with the values from date object set it to labeldate
     // labelDate.textContent = `${day}/${month}/${year}, ${hour}:${min}`;
