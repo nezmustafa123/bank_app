@@ -3,9 +3,7 @@
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
 // BANK APP
-
 // Data
-
 //One object for each account use object to mimic API
 //whenever get data from api data comes in as objects
 const account1 = {
@@ -44,8 +42,8 @@ const account2 = {
     "2020-06-25T18:49:59.371Z",
     "2020-07-26T12:01:20.894Z",
   ],
-  currency: "GBP",
-  locale: "en-gb", // en-gb
+  currency: "EUR",
+  locale: "de-DE", // en-gb
 };
 
 const account3 = {
@@ -89,7 +87,7 @@ const account4 = {
 };
 
 const account5 = {
-  owner: "John James",
+  owner: "David Cameron",
   movements: [4300, 1000, -700, 5000, 96000, -6500, 2300, 1220],
   interestRate: 1.3,
   pin: 9892,
@@ -141,6 +139,7 @@ const inputClosePin = document.querySelector(".form__input--pin");
 const formatMovementDate = function (date, locale) {
   //takes in the date from moements date as well as locale
   //format the movements date
+  //create function inside this function that calculates days passed
   const calcDaysPassed = (date1, date2) => {
     return Math.round(Math.abs(date2 - date1) / (1000 * 60 * 60 * 24));
   };
@@ -160,6 +159,16 @@ const formatMovementDate = function (date, locale) {
     // return `${day}/${month}/${year}`;
     return new Intl.DateTimeFormat(locale).format(date); //pass in locale into function and return return date that's formatted locale revieved
   }
+};
+
+const formatCur = function (value, locale, currency) {
+  //reusable function
+
+  return new Intl.NumberFormat(locale, {
+    style: "currency",
+    currency: currency,
+  }).format(value);
+  //takes value currency locale and formats
 };
 
 //put the array and foreach in seperate function
@@ -192,13 +201,15 @@ const displayMovements = function (acc, sort = false) {
     //html template literal
     //construct class using template literal
     //mov current element
+    //use format Cur function pass in mov acclocale and
+    const formattedMov = formatCur(mov, acc.locale, acc.currency);
     const html = `
        <div class="movements__row">
           <div class="movements__type movements__type--${type}">${
       i + 1
     } ${type}</div>
           <div class="movements__date">${displayDate}</div> 
-          <div class="movements__value">£${mov.toFixed(2)}</div>
+          <div class="movements__value">${formattedMov}</div>
         </div>
          `;
     containerMovements.insertAdjacentHTML("afterbegin", html);
@@ -212,17 +223,20 @@ const displayMovements = function (acc, sort = false) {
 
 const calcDisplayBalance = function (acc) {
   //pass in entire account
-  //set new property in account object recieved
+  //create and set new property in account object recieved new property is balance
   acc.balance = acc.movements.reduce(function (acc, mov) {
     //accumulator first parameter starts at 0
     //acc is added to each iteratoin of loop so have to return the value use acc to keep track of sum on, each iteration returns accumulator and current element sum
     return acc + mov;
   }, 0);
-  //    acc.balance = balance;
+  // acc.balance = balance;
   //it returns one single number so all values added together starter value 0
   //change balance labels text content
+  //can pass in account balance that's crerated and set gets passed in to format method
+  const formattedMov = formatCur(acc.balance, acc.locale, acc.currency);
 
-  labelBalance.textContent = `£${acc.balance.toFixed(2)} £`;
+  labelBalance.textContent = `${formattedMov}`;
+  //display result in text content
 };
 
 //calcDisplayBalance(account1.movements);
@@ -267,10 +281,11 @@ const createUsernames = function (accs) {
       .toLowerCase()
       .split(" ") //split string into words by space
       .map(function (name) {
-        return name[0];
+        return name[0]; //return the first letter of both names
       })
       .join("");
     //no need to return
+    console.log(acc.username);
   });
 };
 
@@ -386,11 +401,11 @@ btnLogin.addEventListener("click", function (e) {
     //can get locale from broswer itself
     // const locale = navigator.language;
     // console.log(locale);
-
+    // internationalising dates using date time api
     labelDate.textContent = new Intl.DateTimeFormat(
-      currentAccount.locale,
-      options
-    ).format(now); //get local from the objects depending on who is logged in
+      currentAccount.locale, //get current accounts locale string
+      options //pass in options object as a second argument
+    ).format(now); //get local from the objects depending on who is logged in use format method
 
     // //whenever log in create new date
     // // const now = new Date();
@@ -489,14 +504,14 @@ btnSort.addEventListener("click", function (e) {
 
 //add evelnt listener to label blance to get values added dynamically need to use event handler
 
-labelBalance.addEventListener("click", function () {
-  //add to event handler
-  [...document.querySelectorAll(".movements__row")].forEach(function (row, i) {
-    //colour every other row check if index is divisible by 2 get the row itself and index
-    if (i % 2 === 0) row.style.backgroundColor = "orangered";
-    //if index is even then change row colour to orange red
-    // 0 3 6 9
+// labelBalance.addEventListener("click", function () {
+//   //add to event handler
+//   [...document.querySelectorAll(".movements__row")].forEach(function (row, i) {
+//     //colour every other row check if index is divisible by 2 get the row itself and index
+//     if (i % 2 === 0) row.style.backgroundColor = "orangered";
+//     //if index is even then change row colour to orange red
+//     // 0 3 6 9
 
-    if (i % 3 === 0) row.style.backgroundColor = "blue";
-  });
-});
+//     if (i % 3 === 0) row.style.backgroundColor = "blue";
+//   });
+// });
