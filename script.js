@@ -8,7 +8,7 @@
 //whenever get data from api data comes in as objects
 const account1 = {
   owner: "Nez Mustafa",
-  movements: [19000, 2000, 4900, 14500, 3060, -5006, -13500, 7000],
+  movements: [19000, 2000, 4900, 14500, 3060, 500, 1350, 7000],
   interestRate: 1.2, // %
   pin: 4563,
 
@@ -246,17 +246,24 @@ const calcDisplaySummary = function (acc) {
   const incomes = acc.movements
     .filter((mov) => mov > 0)
     .reduce((acc, mov) => acc + mov, 0);
-  labelSumIn.textContent = `£${incomes}`;
+
+  labelSumIn.textContent = formatCur(incomes, acc.locale, acc.currency);
 
   const outgoings = acc.movements
     .filter((mov) => mov < 0)
     .reduce((acc, mov) => acc + mov, 0);
-  labelSumOut.textContent = `£${Math.abs(outgoings.toFixed(2))}`;
+
+  labelSumOut.textContent = formatCur(
+    //abs convert to posiive
+    Math.abs(outgoings),
+    acc.locale,
+    acc.currency
+  );
   //calc interest
   //    const interestRate = 0.3;
   const interest = acc.movements
     .filter((mov) => mov > 0)
-    .map((deposit) => deposit * acc.interestRate) //multiply each deposit with accounts interest rate
+    .map((deposit) => (deposit * acc.interestRate) / 100) //multiply each deposit with accounts interest rate
     .filter((int, i, arr) => {
       console.log(arr);
       return int >= 1;
@@ -265,7 +272,8 @@ const calcDisplaySummary = function (acc) {
       // has access to interests index arr
     })
     .reduce((acc, int) => acc + int, 0);
-  labelSumInterest.textContent = `£${interest.toFixed(2)}`;
+  //format interest put in label interest
+  labelSumInterest.textContent = formatCur(interest, acc.locale, acc.currency);
 };
 
 //calcDisplaySummary(account1.movements);
@@ -441,16 +449,18 @@ btnLoan.addEventListener("click", function (e) {
     amount > 0 &&
     currentAccount.movements.some((mov) => mov >= amount * 0.1)
   ) {
-    //if ANY movement in current account is greater than 10 percent of requested amount will return true
-    //add movement
-    currentAccount.movements.push(amount);
+    setTimeout(function () {
+      //if ANY movement in current account is greater than 10 percent of requested amount will return true
+      //add movement
+      currentAccount.movements.push(amount);
 
-    //add loan date
-    currentAccount.movementsDates.push(new Date().toISOString()); //create new date and push to current
+      //add loan date
+      currentAccount.movementsDates.push(new Date().toISOString()); //create new date and push to current
 
-    //update UI
-    updateUI(currentAccount);
-    //pass current account into update UI function
+      //update UI
+      updateUI(currentAccount);
+      //pass current account into update UI function
+    }, 4000);
   }
   inputLoanAmount.value = "";
 });
