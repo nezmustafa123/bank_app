@@ -187,7 +187,7 @@ const displayMovements = function (acc, sort = false) {
     : acc.movements;
   //if sort is false then should just return movements as is and print on screen as is
   //if true then create shallow copy using slice then sort
-  console.log(movs);
+  // console.log(movs);
   movs.forEach(function (mov, i) {
     //;oop through the current accounts movements
     //use movements just created
@@ -350,6 +350,24 @@ const updateUI = function (acc) {
   //update UI
 };
 
+const startLogoutTimer = function () {
+  //set time to 5 minutes
+  let time = 100; //start with certain number of seconds each time callback is called by set interval every second minus second
+  // call the timer every second
+
+  //in each call print the remaining time to UI
+
+  labelTimer.textContent = time;
+
+  setInterval(function () {
+    //execute every second
+
+    //decrease one second each time callback is called
+    time = time - 1;
+    //when time is 0 logout the user
+  }, 1000);
+};
+
 //Event handlers
 
 let currentAccount;
@@ -436,6 +454,7 @@ btnLogin.addEventListener("click", function (e) {
     inputLoginPin.blur();
     //assignment operator right to left assign both
 
+    startLogoutTimer();
     //refactor three functions taking in current account1
     updateUI(currentAccount);
   }
