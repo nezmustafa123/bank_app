@@ -352,18 +352,21 @@ const updateUI = function (acc) {
 
 const startLogoutTimer = function () {
   //set time to 5 minutes
-  let time = 100; //start with certain number of seconds each time callback is called by set interval every second minus second
+  let time = 120; //start with certain number of seconds each time callback is called by set interval every second minus second
   // call the timer every second
-
-  //in each call print the remaining time to UI
-
-  labelTimer.textContent = time;
 
   setInterval(function () {
     //execute every second
-
+    const min = time / 60;
+    const sec = time % 60;
+    //use remainter operator
     //decrease one second each time callback is called
-    time = time - 1;
+
+    //in each call print the remaining time to UI
+    labelTimer.textContent = `${min}:${sec}`;
+    // call the timer every second
+
+    time--; //decrease time by one each second
     //when time is 0 logout the user
   }, 1000);
 };
