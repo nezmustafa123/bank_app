@@ -302,7 +302,7 @@ createUsernames(accounts);
 //implement transfers
 btnTransfer.addEventListener("click", function (e) {
   e.preventDefault();
-  //vconvert to a number because value is string
+  //convert to a number because value is string
   const amount = +inputTransferAmount.value;
   const receiverAcc = accounts.find(
     (acc) => acc.username === inputTransferTo.value
@@ -329,8 +329,15 @@ btnTransfer.addEventListener("click", function (e) {
     //add transfer date
     currentAccount.movementsDates.push(new Date().toISOString()); //create new date and push to current
     receiverAcc.movementsDates.push(new Date().toISOString()); // add to reciever account
-    console.log(receiverAcc);
+    // console.log(receiverAcc);
+
     updateUI(currentAccount); //update ui takes in current account
+
+    //reset timer clear interval using timer gloval variable then restart
+    clearInterval(timer);
+    //start again
+    timer = startLogOutTimer();
+    //when doing transfter clear then start
   }
 });
 
@@ -349,7 +356,7 @@ const updateUI = function (acc) {
 
   //update UI
 };
-
+//global startlogouttimer
 const startLogoutTimer = function () {
   //main function
   //put function into variable tick then call it in setinterval
@@ -387,12 +394,13 @@ const startLogoutTimer = function () {
   //use set interval function
   tick(); //function gets called right away otherwise will get called after one second
   const timer = setInterval(tick, 1000); //called every second
+  return timer; //return timer variable to use later
 };
 
 //Event handlers
 
-let currentAccount;
-
+let currentAccount, timer; //need timer variable to persist to use
+//create new timer variable in parent scope
 //current account variable global so you know from which account to transfer money from and to afterwards
 //fake always logged in
 //automatically login change current account and ui login as account one
@@ -475,7 +483,9 @@ btnLogin.addEventListener("click", function (e) {
     inputLoginPin.blur();
     //assignment operator right to left assign both
 
-    startLogoutTimer();
+    //f timer exists already then timer will be cleared
+    if (timer) clearInterval(timer);
+    timer = startLogoutTimer(); //set global timer to timer returned here
     //refactor three functions taking in current account1
     updateUI(currentAccount);
   }
@@ -499,7 +509,9 @@ btnLoan.addEventListener("click", function (e) {
 
       //update UI
       updateUI(currentAccount);
-      //pass current account into update UI function
+
+      clearInterval(timer);
+      timer = startLogoutTimer();
     }, 4000);
   }
   inputLoanAmount.value = "";
