@@ -351,13 +351,10 @@ const updateUI = function (acc) {
 };
 
 const startLogoutTimer = function () {
-  //set time to 5 minutes
-  let time = 120; //start with certain number of seconds each time callback is called by set interval every second minus second
-
-  // call the timer every second
-  //use set interval function
-
-  const timer = setInterval(function () {
+  //main function
+  //put function into variable tick then call it in setinterval
+  const tick = function () {
+    //define first then call later
     //have to put timer into name
     //execute every second
     const min = String(Math.trunc(time / 60)).padStart(2, 0);
@@ -369,13 +366,27 @@ const startLogoutTimer = function () {
     labelTimer.textContent = `${min}:${sec}`;
     // call the timer every second
 
-    time--; //decrease time by one each second
-    //when time is 0 logout the user
     if (time === 0) {
+      //if time is 0 clear interval pass in variable timer
       //clear interval to stop set interval timer
       clearInterval(timer); //stop the timer
+
+      //display UI and message
+      //set opacity pack to 0
+      labelWelcome.textContent = `Login in to get started`;
+      containerApp.style.opacity = 0;
     }
-  }, 1000); //called every second
+
+    time--; //decrease time by one each second
+    //when time is 0 logout the user
+  };
+  //set time to 2 minutes
+  let time = 120; //start with certain number of seconds each time callback is called by set interval every second minus second
+
+  // call the timer every second
+  //use set interval function
+  tick(); //function gets called right away otherwise will get called after one second
+  const timer = setInterval(tick, 1000); //called every second
 };
 
 //Event handlers
