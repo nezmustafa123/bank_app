@@ -136,6 +136,9 @@ const inputLoanAmount = document.querySelector(".form__input--loan-amount");
 const inputCloseUsername = document.querySelector(".form__input--user");
 const inputClosePin = document.querySelector(".form__input--pin");
 
+let currentAccount, timer; //need timer variable to persist to use
+//create new timer variable in parent global  scope
+//current account variable global so you know from which account to transfer money from and to afterwards
 const formatMovementDate = function (date, locale) {
   //takes in the date from moements date as well as locale
   //format the movements date
@@ -163,7 +166,7 @@ const formatMovementDate = function (date, locale) {
 
 const formatCur = function (value, locale, currency) {
   //reusable function
-
+  //use it to format according to locale
   return new Intl.NumberFormat(locale, {
     style: "currency",
     currency: currency,
@@ -223,7 +226,7 @@ const displayMovements = function (acc, sort = false) {
 
 const calcDisplayBalance = function (acc) {
   //pass in entire account
-  //create and set new property in account object recieved new property is balance
+  //create and set new property in account object recieved new property is called balance
   acc.balance = acc.movements.reduce(function (acc, mov) {
     //accumulator first parameter starts at 0
     //acc is added to each iteratoin of loop so have to return the value use acc to keep track of sum on, each iteration returns accumulator and current element sum
@@ -399,7 +402,6 @@ const startLogoutTimer = function () {
 
 //Event handlers
 
-let currentAccount, timer; //need timer variable to persist to use
 //create new timer variable in parent scope
 //current account variable global so you know from which account to transfer money from and to afterwards
 //fake always logged in
