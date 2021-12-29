@@ -140,7 +140,7 @@ let currentAccount, timer; //need timer variable to persist to use
 //create new timer variable in parent global  scope
 //current account variable global so you know from which account to transfer money from and to afterwards
 const formatMovementDate = function (date, locale) {
-  //takes in the date from moements date as well as locale
+  //takes in the date from movements date as well as locale
   //format the movements date
   //create function inside this function that calculates days passed
   const calcDaysPassed = (date1, date2) => {
@@ -192,14 +192,14 @@ const displayMovements = function (acc, sort = false) {
   //if true then create shallow copy using slice then sort
   // console.log(movs);
   movs.forEach(function (mov, i) {
-    //;oop through the current accounts movements
+    //loop through the current accounts movements
     //use movements just created
     //get current movement and index
 
     //if current movement greater than zero movement should be deposit
     const type = mov > 0 ? "deposit" : "withdrawal";
     //use the available index to also loop over movementDates reference elements with the equivalent index in dates array
-    const date = new Date(acc.movementsDates[i]); //convert back to javascript object to get day month etc date is movements date from object
+    const date = new Date(acc.movementsDates[i]); //convert back to javascript object to get day month etc date is movements date from object  i will correspond to same index as acc movements
     const displayDate = formatMovementDate(date, acc.locale); //printing the result of the formatMovementDate in the template literal (display date)
     //html template literal
     //construct class using template literal
@@ -362,7 +362,7 @@ const updateUI = function (acc) {
 //global startlogouttimer
 const startLogoutTimer = function () {
   //main function
-  //put function into variable tick then call it in setinterval
+  //put function into variable tick then call it in setinterval as a callback
   const tick = function () {
     //define first then call later
     //have to put timer into name
@@ -391,13 +391,13 @@ const startLogoutTimer = function () {
     //when time is 0 logout the user
   };
   //set time to 2 minutes
-  let time = 120; //start with certain number of seconds each time callback is called by set interval every second minus second
+  let time = 240; //start with certain number of seconds each time callback is called by set interval every second minus second
 
   // call the timer every second
-  //use set interval function
+  //use set interval function put set interval in timer variable to clear it afterwards
   tick(); //function gets called right away otherwise will get called after one second
   const timer = setInterval(tick, 1000); //called every second
-  return timer; //return timer variable to use later
+  return timer; //return timer variable to use later in other callback functions
 };
 
 //Event handlers
