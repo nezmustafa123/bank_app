@@ -391,7 +391,7 @@ const startLogoutTimer = function () {
     //when time is 0 logout the user
   };
   //set time to 2 minutes
-  let time = 240; //start with certain number of seconds each time callback is called by set interval every second minus second
+  let time = 480; //start with certain number of seconds each time callback is called by set interval every second minus second
 
   // call the timer every second
   //use set interval function put set interval in timer variable to clear it afterwards
